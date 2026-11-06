@@ -1,0 +1,34 @@
+# What defines quality for a bottle of Portuguese wine?
+
+## Group
+Myself
+
+## Changes since the proposal
+I didn't change anything specifically after the feedback, but rather followed the instructor's suggestions and implemented LASSO as part of my baseline. I am considering using elastic net to deal with the multicollinearity concerns with the predictors, though the small number of dataset features leads me to believe there won’t be a significant difference in the implemented regularization model.
+
+## Data
+There were originally 6497 rows (1599 rows for reds and 4898 for whites). Each row has 12 features (11 predictors and 1 target). I dropped 240 rows for the reds and 937 for the whites to remove duplicates. No rows had missing information or data entry issues.
+
+## Split
+I split the data into an 80/20 train/test split as suggested by Professor Preciado, but extended
+this idea by using a stratified split to account for the rare cases of very high and very low
+quality scores. I then used the training data to fit 10 fold cross validation for my baseline
+model, with the 20% testing data remaining untouched in this process until evaluation at the end.
+
+## Baseline
+I fit two linear regressions using 10-fold CV for the red and white wines, and then ran lasso for both groups, with the penalty chosen by 10-fold CV over a log grid and scaling inside the folds, as suggested by Professor Preciado. I also computed the scoring metrics for a dummy regression model that just predicts the median quality score of the data for each wine.
+
+## Result
+For each of the models above, I computed the mean absolute error (MAE) for each of the 10 folds in CV, and then I reported the mean, median, standard deviation, and lowest/highest MAE values. 
+
+## Issues found
+I was surprised that no red wines had a quality score of 9 or 10, no white wines had a quality score of 10, and both types of wine did not have scores of 1 or 2. The MAE estimates seem to be quite stable (low standard deviation in the 10-fold CV metrics), so I am not super surprised by anything I've seen yet.
+
+## Next steps
+My plan moving forward is to implement Professor Preciado's suggestions. There are two more 
+elements of his feedback I have yet to do for this phase. The first is to target the specific 
+question this project attempts to answer: "Which inputs does the lasso keep for red and for 
+white wine, how stable are those choices over 200 bootstrap resamples, and what does dropping the rest cost in CV error?" The second is to create error bars by bootstrapping the training data to see the selection frequencies from LASSO, the resulting coefficient intervals, and then replicate this bootstrapping for the test set MAE intervals as well. These metrics will allow me to conclude whether the improved LASSO model is truly better than the plain linear regression.
+
+## Code
+https://github.com/alan-c-lin/portuguese_wine_quality
