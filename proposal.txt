@@ -1,0 +1,26 @@
+# What defines quality for a bottle of Portuguese wine?
+## Group
+Self (Alan Lin)
+## Topic
+Own.
+## Question
+Given various qualities about Portuguese wines (both red and white), can we predict what factors lead to higher quality scores?
+## Why it matters
+The wine farming industry is a significant contributor to the Portuguese economy because of its role in progressing tourism (which accounts for a major portion of the Portuguese GDP). Furthermore, spirits are consumed on the daily internationally, and the evaluation of these spirits is an entire field of work (wine tasting) that has certifications allowing individuals to curate beverage menus at restaurants, hotels, and theme parks. This project allows for consumers of all levels (common folk, certified sommeliers, and enthusiasts) to reference and learn about the what variables play a significant role in defining wine quality.
+## Data
+https://archive.ics.uci.edu/dataset/186/wine+quality
+When loaded, there are 1599 rows for the red wine dataset and 4898 rows for the white wine dataset. Each dataset has the same 12 features (11 inputs and 1 target).
+## Baseline
+I plan on applying simple multivariate linear regression to predict the "quality" of the wines (grouped by white or red), and also utilize a basic logistic regression that classifies wines as "good" or "bad" based on whether the "quality" score was above a 7. I will tune these models by using K-fold CV for model tuning (based on MSE for regression and AUROC/AP for classification).
+## Comparison
+For the prediction of scores, I will set a reduced feature model against the baseline to see how well a subset of features can perform, and I will also see if adding interaction (and potentially polynomial) terms improves the performance of the prediction model, while potentially using regression trees to further results. For the classification of "good" quality wines, I will utilize a classification tree to compare performance (and also potentially use subset selection for classification as well). If time permits, I would like to also attempt a form of unsupervised learning to analyze the "distribution" of wine types in the dataset (and potentially make comments on how these distributions relate to their quality).
+## Evaluation
+I plan on using k-fold cross validation to train my models, and bootstrap 95% confidence intervals for regression coefficients to explain some of the variability in my model. My plan is to use an 80/20 train/test split, then run k-fold CV on the 80% training data, then use it on the test data to evaluate performance. Bootstrapping 95% CI's can be done by then getting bootstrap samples of the testing data to repeatedly run predictions with the trained model and get an evaluative 95% CI.
+## Key figure
+The key figure (for regression) would have the actual quality values (target) on the x-axis and my model's predicted quality values on the y-axis. There will be a diagonal line for the equation y = x representing a perfect fit, and this plot will show how well my model's predictions stack up to the actual quality metrics in the dataset. Another key figure would have the predicted quality values on the x-axis and the residuals (with a confidence interval band) on the y-axis, showing whether the predictions were "good" according to the CI's. For the classification model(s), key figures would include the ROC curve, PR curve, and a confusion matrix to showcase the model's capabilities in comparison to idealized metrics.
+## Risks and fallback
+There are quite a few models I am comparing here, so if time runs low and I don't have the ability to handle all these models by myself, a smaller paper I could write would focus more on the linear regression side of things and potentially add more complexity to that front by doing some sort of model selection and principal component regression to compare their performances. 
+## Who does what
+I (Alan) will do everything.
+## AI plan
+I plan on potentially utilizing Claude, Google Gemini Pro, ChatGPT, and Muse to assist my debugging for coding and conceptual questions on workflow.
